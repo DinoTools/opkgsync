@@ -18,11 +18,18 @@
 
 import logging
 import os
-from urllib.parse import urlparse, urljoin
+import sys
 from optparse import OptionParser
-import http.client
 import hashlib
 import tempfile
+
+if sys.version_info[0] == 3:
+    from urllib.parse import urlparse, urljoin
+    from http.client import HTTPConnection
+else:
+    from urlparse import urlparse, urljoin
+    from httplib import HTTPConnection
+
 
 required_values = ["package", "filename", "size", "md5sum"]
 compare_values = ["filename"]
@@ -231,7 +238,7 @@ def download_files(files, url, download_path, conn=None):
     file_count = len(files)
     log.info("Downloading %d files ...", file_count)
     if conn is None:
-        conn = http.client.HTTPConnection(url.netloc)
+        conn = HTTPConnection(url.netloc)
 
     for i, filename in enumerate(files, 1):
         log.debug("Downloading file(%d of %d) '%s' ...",
@@ -274,7 +281,7 @@ def main():
 
     # fetch Packages from remote URL
     log.info("Fetching 'Packages' from remote Server ...")
-    conn = http.client.HTTPConnection(url.netloc)
+    conn = HTTPConnection(url.netloc)
     conn.request("GET", url.path)
     response = conn.getresponse()
     # Cache remote 'Packages' file
