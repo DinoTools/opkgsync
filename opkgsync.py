@@ -16,6 +16,12 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
+"""
+The opkgsync tool provides an easy way to create a mirror of an opkg package
+repository. It has a very limited parser for 'Packages' files and can
+synchronize available packages to a local directory.
+"""
+
 import logging
 import os
 import sys
