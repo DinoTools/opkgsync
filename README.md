@@ -8,6 +8,7 @@ The opkgsync tool provides an easy way to create a mirror of an opkg package rep
 Requirements
 ------------
 
+* Python >= 2.6
 * Python >= 3.2
 
 Install
