@@ -274,6 +274,9 @@ def main():
                       help="Verbosity", action="count")
     (options, args) = parser.parse_args()
 
+    if not options.packages_url:
+        parser.error("URL of 'Packages' file not given")
+
     # init logger
     lvl = logging.ERROR - options.verbosity * 10
     if lvl < 0:
